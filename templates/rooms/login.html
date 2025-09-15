@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Log In</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        {% if form.errors %}
+            <div class="error-box">
+                <p>Invalid username or password</p>
+            </div>
+        {% endif %}
+    </div>
+
+    
+</body>
+</html>
