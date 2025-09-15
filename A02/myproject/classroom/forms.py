@@ -15,9 +15,9 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = ["room"]
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.fields['room'].queryset = RoomData.objects.filter(room_available=True, room_hour__gt=0)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['room'].queryset = RoomData.objects.filter(room_available=True, room_hour__gt=0)
 
 
     
