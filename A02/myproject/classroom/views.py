@@ -56,7 +56,7 @@ def reserve_room(request, room_id):
     # Handle a GET request (initial page load)
     else:
         context = {'room': room}
-        return render(request, 'reserve.html', context)
+        return render(request, 'rooms/reserve.html', context)
 
 def cancel_reservation(request):
     reservation = Reservation.objects.filter(user=request.user).first()
