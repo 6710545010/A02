@@ -1,4 +1,4 @@
-{% load static %}
+<!--{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,7 @@
                 <p>Available: 
                     {% if room.room_available %} Available {% else %} Not Available {% endif %}
                 </p>
-                 <a href="{% static 'rooms/reserve.html' %}" class="btn">Reserve</a>
+                <a href="{% url 'reserve' room.id %}" class="btn">Reserve</a>
             </li>
         {% empty %}
             <p> No rooms available right now</p>
@@ -31,4 +31,63 @@
     <script src="{% static 'js/script.js'%}"></script>
     <img src="{% static "images/.png" %}" alt="Logo">
 </body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Booking</title>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Room Booking System</h1>
+        <nav>
+            <a href="{% url 'index' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'cancel' %}">Cancel Reservation</a>
+                <span>Welcome, {{ user.username }}</span>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        <h2>Available Rooms</h2>
+        <div class="room-list">
+            {% if rooms %}
+                {% for room in rooms %}
+                    <div class="room-card">
+                        <h3>{{ room.room_name }}</h3>
+                        <p>Capacity: {{ room.room_capacity }}</p>
+                        <p>Hours left: {{ room.room_hour }}</p>
+                        {% if room.room_available %}
+                            <a href="{% url 'reserve' room.id %}" class="btn">Reserve</a>
+                        {% else %}
+                            <p class="unavailable">Not Available</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No rooms available right now</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
 </html>
+
